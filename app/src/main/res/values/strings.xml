@@ -4,6 +4,11 @@
     <string name="pw">Password</string>
     <string name="ftype">Select Fuel Type</string>
     <string name="FArrival">Fuel Arrival</string>
+
+    <string name="FFinish">Fuel Finish</string>
+    <string name="efat">Enter Fuel Arrival Time</string>
+    <string name="efft">Enter Fuel Finish Time</string>
+
     <string name="find_fuel_headline">Find Nearest Stations</string>
     <string name="find_loc">Enter Location</string>
     <string name="station_head">Location 01</string>
@@ -20,4 +25,7 @@
     <string name="afterLeaveTxt">Leave after pump fuel : </string>
     <string name="waitQueue">I will wait at this Queue</string>
     <string name="queueGoBack">Take me back</string>
+    <string name="JoinQueue">I Joined The Queue</string>
+    <string name="LeaveAfterPump">Leaving After Pumping Fuel</string>
+    <string name="LeaveBeforePump">Leaving Before Pumping Fuel</string>
 </resources>
