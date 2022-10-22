@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Fuelex</string>
+    <string name="username">Username</string>
+    <string name="pw">Password</string>
+    <string name="ftype">Select Fuel Type</string>
+    <string name="FArrival">Fuel Arrival</string>
 </resources>
