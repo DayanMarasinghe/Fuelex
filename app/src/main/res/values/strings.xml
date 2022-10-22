@@ -6,4 +6,10 @@
     <string name="FArrival">Fuel Arrival</string>
     <string name="find_fuel_headline">Find Nearest Stations</string>
     <string name="find_loc">Enter Location</string>
+    <string name="station_head">Location 01</string>
+    <string name="available_type_head">Available Fuel Types</string>
+    <string name="qty_available">Available Quantity : </string>
+    <string name="nxtArrivalTime">Arrival Time : </string>
+    <string name="goToQueueBtnText">Show me the Queue</string>
+    <string name="unitLiter">Litre</string>
 </resources>
