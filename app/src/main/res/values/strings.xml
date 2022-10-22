@@ -4,4 +4,6 @@
     <string name="pw">Password</string>
     <string name="ftype">Select Fuel Type</string>
     <string name="FArrival">Fuel Arrival</string>
+    <string name="find_fuel_headline">Find Nearest Stations</string>
+    <string name="find_loc">Enter Location</string>
 </resources>
