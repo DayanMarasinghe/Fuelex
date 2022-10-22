@@ -12,4 +12,12 @@
     <string name="nxtArrivalTime">Arrival Time : </string>
     <string name="goToQueueBtnText">Show me the Queue</string>
     <string name="unitLiter">Litre</string>
+    <string name="queueViewHeadDash"> - </string>
+    <string name="queueViewHeadText">Queue</string>
+    <string name="avgWaitTime">Average waiting time</string>
+    <string name="currCountTxt">Current Queue Length : </string>
+    <string name="beforeLeaveTxt">Leave before pump fuel : </string>
+    <string name="afterLeaveTxt">Leave after pump fuel : </string>
+    <string name="waitQueue">I will wait at this Queue</string>
+    <string name="queueGoBack">Take me back</string>
 </resources>
