@@ -17,5 +17,8 @@
     <string name="nxtArrivalTime">Arrival Time : </string>
     <string name="goToQueueBtnText">Show me the Queue</string>
     <string name="unitLiter">Litre</string>
+    <string name="JoinQueue">I Joined The Queue</string>
+    <string name="LeaveAfterPump">Leaving After Pumping Fuel</string>
+    <string name="LeaveBeforePump">Leaving Before Pumping Fuel</string>
 
 </resources>
