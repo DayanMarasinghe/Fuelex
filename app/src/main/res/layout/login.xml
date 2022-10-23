@@ -43,7 +43,8 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.184" />
+        app:layout_constraintVertical_bias="0.184"
+        android:background="@android:color/transparent"/>
 
     <EditText
         android:id="@+id/ownerpw"
@@ -59,7 +60,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        android:background="@android:color/transparent"/>
 
     <TextView
         android:id="@+id/cussignins"
@@ -72,6 +74,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -85,16 +88,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/group_2" />
 
-    <ImageView
-        android:id="@+id/loginbutton"
-        android:layout_width="341dp"
-        android:layout_height="100dp"
+    <Button
+        android:id="@+id/cusloginbtn"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:background="@drawable/mybutton"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.115"
-        app:srcCompat="@drawable/group_3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

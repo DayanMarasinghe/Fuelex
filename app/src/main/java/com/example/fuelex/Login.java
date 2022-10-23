@@ -18,7 +18,7 @@ public class Login extends AppCompatActivity {
 
     EditText usernameTxt;
     EditText passwordTxt;
-    ImageView loginbtn;
+    Button loginbtn;
     String username, password;
 
     @Override
@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
 
         usernameTxt = findViewById(R.id.ownerun);
         passwordTxt = findViewById(R.id.ownerpw);
-        loginbtn = (ImageView) findViewById(R.id.loginbutton);
+        loginbtn =  findViewById(R.id.cusloginbtn);
 
         username = usernameTxt.getText().toString();
         password = passwordTxt.getText().toString();

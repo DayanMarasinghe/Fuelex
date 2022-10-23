@@ -34,6 +34,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="45dp"
         android:layout_marginBottom="40dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textEmailAddress"
@@ -51,6 +52,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="45dp"
         android:layout_marginBottom="180dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="@string/pw"
         android:inputType="textPassword"
@@ -61,21 +63,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5"
         app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/cussignins"
-        android:layout_width="87dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="76dp"
-        android:background="@null"
-        android:text="Sign In"
-        android:textColor="#032783"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.894" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -88,15 +75,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/group_4" />
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="341dp"
-        android:layout_height="100dp"
+    <Button
+        android:id="@+id/ownlogintbn"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/mybutton"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
-        app:layout_constraintVertical_bias="0.115"
-        app:srcCompat="@drawable/group_3" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
