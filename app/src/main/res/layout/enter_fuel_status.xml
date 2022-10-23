@@ -6,15 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".EnterFuelStatus">
 
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="324dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/ftime2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ftype"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/group_6" />
+
     <TextView
         android:id="@+id/ftype"
-        android:layout_width="162dp"
-        android:layout_height="42dp"
+        android:layout_width="249dp"
+        android:layout_height="43dp"
         android:layout_marginTop="44dp"
         android:text="@string/ftype"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="#5957BC"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,33 +36,35 @@
 
     <TextView
         android:id="@+id/ftime"
-        android:layout_width="162dp"
-        android:layout_height="42dp"
+        android:layout_width="272dp"
+        android:layout_height="29dp"
         android:text="@string/FFinish"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="#5957BC"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592" />
+        app:layout_constraintVertical_bias="0.619" />
 
     <TextView
         android:id="@+id/ftime2"
-        android:layout_width="162dp"
-        android:layout_height="42dp"
+        android:layout_width="254dp"
+        android:layout_height="33dp"
         android:text="@string/FArrival"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="20sp"
+        android:textColor="#5957BC"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintVertical_bias="0.421" />
 
     <CheckBox
         android:id="@+id/checkBox1"
@@ -56,23 +72,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="592dp"
-        android:minHeight="48dp"
+        android:minHeight="50dp"
         android:text="Diesel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintHorizontal_bias="0.202"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ftype"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <CheckBox
         android:id="@+id/checkBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
+        android:layout_marginTop="16dp"
+        android:minHeight="50dp"
         android:text="Petrol 92"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.385"
+        app:layout_constraintHorizontal_bias="0.214"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox1" />
 
@@ -80,29 +97,53 @@
         android:id="@+id/checkBox3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="484dp"
-        android:minHeight="48dp"
+        android:layout_marginTop="12dp"
+        android:minHeight="50dp"
         android:text="Petrol 95"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.385"
+        app:layout_constraintHorizontal_bias="0.214"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="324dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/ftime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ftime2"
+        app:layout_constraintVertical_bias="0.214"
+        app:srcCompat="@drawable/rectangle_20" />
 
     <EditText
         android:id="@+id/fuelarrivaltime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="@string/efat"
         android:inputType="time"
         android:minHeight="48dp"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ftime2" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ftime"
+        app:layout_constraintVertical_bias="0.116"
+        app:srcCompat="@drawable/rectangle_20" />
 
     <EditText
         android:id="@+id/fuelfinishtime"
@@ -113,25 +154,31 @@
         android:hint="@string/efft"
         android:inputType="time"
         android:minHeight="48dp"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ftime"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintVertical_bias="0.073"
+        android:background="@android:color/transparent"/>
 
     <Button
-        android:id="@+id/fstatussubmit"
-        android:layout_width="387dp"
-        android:layout_height="52dp"
-        android:background="@color/button"
+        android:id="@+id/fuelstbtn"
+        android:layout_width="225dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/mybutton"
         android:text="Submit"
-        android:textSize="20sp"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fuelfinishtime" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView15"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

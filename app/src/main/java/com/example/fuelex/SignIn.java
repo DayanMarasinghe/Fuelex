@@ -39,9 +39,9 @@ public class SignIn extends AppCompatActivity {
         EditText vehicleTypeET = findViewById(R.id.id_VehicleType);
         EditText vehicleNoET = findViewById(R.id.id_VehicleNo);
         Button signInBtn = findViewById(R.id.id_BtnSignIn);
-        progressPB = findViewById(R.id.id_ProgressBarSignIn);
+        //progressPB = findViewById(R.id.id_ProgressBarSignIn);
 
-        progressPB.setVisibility(View.GONE);
+        //progressPB.setVisibility(View.GONE);
 
         //configure the on click listenenr
         signInBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,7 @@ public class SignIn extends AppCompatActivity {
 
     private void postData(String fullName, String userName, String password, String nic, String vehiceType, String vehicleNo){
         //display the progress bar
-        progressPB.setVisibility(View.VISIBLE);
+        //progressPB.setVisibility(View.VISIBLE);
 
         OkHttpClient.Builder client = new OkHttpClient.Builder();
         client.connectTimeout(10, TimeUnit.SECONDS);
@@ -87,7 +87,7 @@ public class SignIn extends AppCompatActivity {
             public void onResponse(Call<UserSignInModel> call, Response<UserSignInModel> response) {
                 Toast.makeText(SignIn.this, "Successfully logged in",Toast.LENGTH_SHORT).show();
 
-                progressPB.setVisibility(View.GONE);
+                //progressPB.setVisibility(View.GONE);
 
                 //set the global variables vehicle type
 
@@ -99,7 +99,7 @@ public class SignIn extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserSignInModel> call, Throwable t) {
-                progressPB.setVisibility(View.GONE);
+                //progressPB.setVisibility(View.GONE);
                 Logger logger = Logger.getLogger(SignIn.class.getName());
                 logger.info("--------------------------------------------------------------------------------------");
                 logger.info(t.toString());
