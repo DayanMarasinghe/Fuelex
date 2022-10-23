@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
         android:layout_marginTop="56dp"
+        android:layout_marginBottom="56dp"
         android:text="Location name"
         android:textColor="#5957BC"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +26,9 @@
         android:layout_height="30sp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="68dp"
+        android:layout_marginBottom="56dp"
         android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/right_button" />
