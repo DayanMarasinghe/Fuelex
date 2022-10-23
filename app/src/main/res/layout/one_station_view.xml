@@ -8,37 +8,50 @@
     tools:context=".OneStationView">
 
     <TextView
-        android:id="@+id/topicString2"
+        android:id="@+id/id_LocationStringInput"
         android:layout_width="241dp"
         android:layout_height="29dp"
         android:layout_marginTop="52dp"
         android:text="@string/station_head"
         android:textAlignment="center"
-        android:textColor="#090909"
+        android:textColor="#5957BC"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="@string/available_type_head"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topicString2" />
-
     <ListView
         android:id="@+id/id_ListFuelTypes"
-        android:layout_width="323dp"
-        android:layout_height="470dp"
+        android:layout_width="320dp"
+        android:layout_height="526dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_LocationStringInput"
+        app:srcCompat="@drawable/rectangle_3" />
+
+    <TextView
+        android:id="@+id/id_TxtxHeadAvailable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/available_type_head"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        app:layout_constraintEnd_toEndOf="@+id/imageView8"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

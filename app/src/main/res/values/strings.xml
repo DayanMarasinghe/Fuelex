@@ -29,4 +29,5 @@
     <string name="LeaveAfterPump">Leaving After Pumping Fuel</string>
     <string name="LeaveBeforePump">Leaving Before Pumping Fuel</string>
     <string name="serachBarTxt">Search Location</string>
+    <string name="showQBtn">Go to Queue</string>
 </resources>
