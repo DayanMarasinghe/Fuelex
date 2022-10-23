@@ -22,7 +22,7 @@
         android:id="@+id/imageView6"
         android:layout_width="341dp"
         android:layout_height="129dp"
-        android:layout_marginBottom="152dp"
+        android:layout_marginBottom="148dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,41 +32,39 @@
         android:id="@+id/ownerun"
         android:layout_width="286dp"
         android:layout_height="50dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginBottom="36dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textEmailAddress"
         android:textColorHint="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/imageView6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.184"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
     <EditText
         android:id="@+id/ownerpw"
         android:layout_width="286dp"
         android:layout_height="50dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="192dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="53dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="@string/pw"
         android:inputType="textPassword"
         android:textColorHint="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintBottom_toTopOf="@+id/cusloginbtn"
+        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
     <TextView
         android:id="@+id/cussignins"
         android:layout_width="87dp"
         android:layout_height="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="16dp"
         android:background="@null"
         android:text="Sign In"
@@ -75,7 +73,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.53"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cusloginbtn" />
 
     <ImageView
         android:id="@+id/imageView4"

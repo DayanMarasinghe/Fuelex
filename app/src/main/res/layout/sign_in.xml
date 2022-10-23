@@ -34,15 +34,17 @@
         android:id="@+id/id_VehicleType"
         android:layout_width="286dp"
         android:layout_height="50dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="28dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="Vehicle Type"
         android:inputType="textEmailAddress"
         android:textColorHint="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView11"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintBottom_toTopOf="@+id/imageView13"
+        app:layout_constraintEnd_toEndOf="@+id/imageView11"
+        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
     <ImageView
         android:id="@+id/imageView13"
@@ -59,16 +61,15 @@
         android:id="@+id/id_VehicleNo"
         android:layout_width="286dp"
         android:layout_height="50dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="Vehicle Number"
         android:inputType="textEmailAddress"
         android:textColorHint="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.812"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintEnd_toEndOf="@+id/imageView13"
+        app:layout_constraintStart_toStartOf="@+id/imageView13"
+        app:layout_constraintTop_toTopOf="@+id/imageView13" />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -86,25 +87,22 @@
         android:id="@+id/id_UserName"
         android:layout_width="286dp"
         android:layout_height="50dp"
-        android:layout_marginTop="196dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textEmailAddress"
         android:textColor="#000000"
         android:textColorHint="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintBottom_toTopOf="@+id/imageView8"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="341dp"
         android:layout_height="129dp"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="240dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,19 +124,16 @@
         android:id="@+id/id_FullName"
         android:layout_width="286dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="44dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="Full Name"
         android:inputType="textEmailAddress"
         android:textColor="#000000"
         android:textColorHint="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/id_UserName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.921"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView10"
@@ -155,33 +150,32 @@
         android:id="@+id/id_NIC"
         android:layout_width="286dp"
         android:layout_height="50dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginBottom="46dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="NIC"
         android:inputType="textEmailAddress"
         android:textColorHint="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/imageView11"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.551"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintEnd_toEndOf="@+id/imageView10"
+        app:layout_constraintStart_toStartOf="@+id/imageView10"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <EditText
         android:id="@+id/id_Password"
         android:layout_width="286dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="44dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:hint="@string/pw"
         android:inputType="textPassword"
         android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_UserName"
-        app:layout_constraintVertical_bias="0.066"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintEnd_toEndOf="@+id/imageView8"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
     <TextView
         android:id="@+id/textView"
