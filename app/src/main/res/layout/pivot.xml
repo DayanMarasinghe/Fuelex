@@ -6,55 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".Pivot">
 
-    <ImageButton
-        android:id="@+id/pivot1"
-        android:layout_width="403dp"
-        android:layout_height="368dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/wavy_eco_01_single_02__1_"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageButton
-        android:id="@+id/pivot2"
-        android:layout_width="409dp"
-        android:layout_height="352dp"
-        android:layout_marginBottom="27dp"
-        app:layout_constraintBottom_toTopOf="@+id/pivot1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/wavy_eco_01_single_08__1_"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:srcCompat="@drawable/group_1" />
 
-    <TextView
-        android:id="@+id/loginascus"
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Login as Customer"
-        android:textColor="#000000"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pivot2" />
-
-    <TextView
-        android:id="@+id/loginasowner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login as Owner"
-        android:textColor="#000000"
-        android:textSize="34sp"
+        android:layout_marginBottom="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pivot1"
-        app:layout_constraintVertical_bias="0.085" />
-
+        app:srcCompat="@drawable/pivot_owner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
