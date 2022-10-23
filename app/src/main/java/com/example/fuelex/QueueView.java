@@ -3,6 +3,7 @@ package com.example.fuelex;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class QueueView extends AppCompatActivity {
@@ -11,7 +12,7 @@ public class QueueView extends AppCompatActivity {
     double avgTime = 12.0;
     int currCount = 10;
     int beforeCount = 2;
-    int afterCount = 2;
+    int afterCount = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class QueueView extends AppCompatActivity {
         TextView currCountInput = findViewById(R.id.id_CurCountInput);
         TextView beforeCountInput = findViewById(R.id.id_BeforeLeaveInput);
         TextView afterCountInput = findViewById(R.id.id_AfterLeaveInput);
-        TextView statusText = findViewById(R.id.id_QueueStatusInput);
+        ImageView imgStatus = (ImageView) findViewById(R.id.id_StatusImg);
 
         //setting values
         avgTimeInput.setText(Integer.toString((int) avgTime));
@@ -37,14 +38,11 @@ public class QueueView extends AppCompatActivity {
 
         //check the conditions before setting the status
         if (afterCount < beforeCount){
-            statusText.setText("Slow moving queue");
-            statusText.setBackgroundResource(R.color.red);
+            imgStatus.setImageResource(R.drawable.slow_grp);
         } else if(afterCount > beforeCount){
-            statusText.setText("Fast moving queue");
-            statusText.setBackgroundResource(R.color.green);
+            imgStatus.setImageResource(R.drawable.fast_grp);
         } else{
-            statusText.setText("Moderate");
-            statusText.setBackgroundResource(R.color.yellow);
+            imgStatus.setImageResource(R.drawable.moderate_grp);
         }
     }
 }
