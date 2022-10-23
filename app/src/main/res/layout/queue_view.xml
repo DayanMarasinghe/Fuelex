@@ -7,30 +7,17 @@
     tools:context=".QueueView">
 
     <TextView
-        android:id="@+id/id_CurCountInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="284dp"
-        android:text="textview"
-        android:textAlignment="textStart"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.613"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/id_QueueViewHeadLocationInput"
-        android:layout_width="77dp"
-        android:layout_height="26dp"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
         android:text="txt"
         android:textAlignment="center"
-        android:textColor="#090909"
+        android:textColor="#673AB7"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/id_QueueViewHeadLocationInput2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintHorizontal_bias="0.293"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -40,8 +27,9 @@
         android:layout_marginEnd="124dp"
         android:text="@string/queueViewHeadDash"
         android:textAlignment="center"
-        android:textColor="#090909"
         android:textSize="20sp"
+        android:textColor="#673AB7"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/id_QueueViewHeadFuelTypeInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -49,12 +37,13 @@
 
     <TextView
         android:id="@+id/id_QueueViewHeadFuelTypeInput"
-        android:layout_width="116dp"
+        android:layout_width="62dp"
         android:layout_height="28dp"
         android:text="type"
         android:textAlignment="center"
-        android:textColor="#090909"
+        android:textColor="#673AB7"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/id_QueueViewHeadFuelTypeInput2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -62,65 +51,52 @@
 
     <TextView
         android:id="@+id/id_QueueViewHeadFuelTypeInput2"
-        android:layout_width="72dp"
-        android:layout_height="27dp"
+        android:layout_width="66dp"
+        android:layout_height="29dp"
         android:layout_marginTop="104dp"
         android:text="@string/queueViewHeadText"
         android:textAlignment="center"
-        android:textColor="#090909"
+        android:textColor="#673AB7"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/id_QueueViewHeadFuelTypeInput"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_QueueViewHeadFuelTypeInput"
+        app:srcCompat="@drawable/rectangle_3" />
+
     <TextView
         android:id="@+id/id_AvgTimeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="172dp"
         android:text="@string/avgWaitTime"
-        android:textColor="#000000"
-        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/id_QueueStatusInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="476dp"
-        android:lineSpacingExtra="60sp"
-        android:text="sample txt"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/id_CurCountTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/currCountTxt"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/id_CurCountInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.097"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
         android:id="@+id/id_AvgTimeInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,14 +125,52 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/id_BeforeLeaveTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/beforeLeaveTxt"
+        android:textColor="#5957BC"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/id_BeforeLeaveInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.353"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/id_CurCountInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="284dp"
+        android:text="textview"
+        android:textAlignment="textStart"
+        android:textColor="#5957BC"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.772"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/id_CurCountTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currCountTxt"
+        android:textColor="#5957BC"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/id_CurCountInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/id_BeforeLeaveInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="136dp"
+        android:layout_marginEnd="80dp"
         android:text="textview"
         android:textAlignment="textStart"
-        android:textColor="#000000"
+        android:textColor="#5957BC"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_CurCountInput" />
@@ -166,23 +180,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/afterLeaveTxt"
-        android:textColor="#000000"
+        android:textColor="#5957BC"
         android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/id_AfterLeaveInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.106"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/id_BeforeLeaveTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/beforeLeaveTxt"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/id_BeforeLeaveInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.112"
+        app:layout_constraintHorizontal_bias="0.334"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -190,12 +192,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="136dp"
+        android:layout_marginEnd="80dp"
         android:text="textview"
         android:textAlignment="textStart"
-        android:textColor="#000000"
+        android:textColor="#5957BC"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_BeforeLeaveInput" />
+
+    <ImageView
+        android:id="@+id/id_StatusImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="248dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView9"
+        app:srcCompat="@drawable/moderate_grp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
