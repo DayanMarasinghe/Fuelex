@@ -3,6 +3,7 @@ package com.example.fuelex;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -10,19 +11,31 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.fuelex.Models.StationModel;
 import com.example.fuelex.RetrofitClasses.RetrofitClientStation;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.logging.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class StationView extends AppCompatActivity {
+    String URL = "";
+    RequestQueue requestQueue;
     ListView locationList;
     //String locList[] = {"Kandy", "Colombo", "wer","WERWRE","WERWRWRE","WERWRWER","WWERWRWRE","WERWRE"};
+    String locList[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,35 +55,35 @@ public class StationView extends AppCompatActivity {
         getStationList();
 
         //set the content for the list
-        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.location_list, R.id.id_LocationName,locList);
-        //locationList.setAdapter(arrayAdapter);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.location_list, R.id.id_LocationName,locList);
+        locationList.setAdapter(arrayAdapter);
 
     }
 
     private void getStationList(){
-        Call<List<StationModel>> call = RetrofitClientStation.getInstance().getStatonApi().getStations();
-        call.enqueue(new Callback<List<StationModel>>() {
-            @Override
-            public void onResponse(Call<List<StationModel>> call, Response<List<StationModel>> response) {
-                List<StationModel> stationList = response.body();
-                String[] locList = new String[stationList.size()];
 
-                for (int i = 0; i < stationList.size(); i++){
-                    locList[i] = stationList.get(i).getLocation();
+        requestQueue = Volley.newRequestQueue(this);
+
+        StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject object =new JSONObject(response);
+                    JSONArray array=object.getJSONArray("location");
+                    for(int i=0;i<array.length();i++) {
+                        JSONObject object1=array.getJSONObject(i);
+                        locList[i] = object1.toString();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-                locationList.setAdapter(new ArrayAdapter<String>(getApplicationContext(),R.layout.location_list,R.id.id_LocationName,locList));
             }
-
+        }, new Response.ErrorListener() {
             @Override
-            public void onFailure(Call<List<StationModel>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Could not get the location list", Toast.LENGTH_LONG).show();
-                Logger logger = Logger.getLogger(SignIn.class.getName());
-                logger.info("--------------------------------------------------------------------------------------");
-                logger.info(t.toString());
-                logger.info(call.toString());
-                logger.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error",error.toString());
             }
         });
+        requestQueue.add(request);
     }
 }

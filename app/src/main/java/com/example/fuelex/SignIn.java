@@ -10,8 +10,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -25,7 +27,6 @@ import java.util.HashMap;
 public class SignIn extends AppCompatActivity {
 
     private ProgressBar progressPB;
-    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void postData(String fullName, String userName, String password, String nic, String vehiceType, String vehicleNo){
-        String url ="https://192.168.8.108:45455/signup";
+        String url ="https://192.168.8.108:45456/signup";
 
         HashMap<String, String> body = new HashMap<String, String>();
 
@@ -74,21 +75,20 @@ public class SignIn extends AppCompatActivity {
         body.put("vehicleType",vehiceType);
         body.put("vehicleNumber",vehicleNo);
 
-        JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(body),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            VolleyLog.v("Response:%n %s", response.toString(4));
-                        } catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(SignIn.this,"Signed in", Toast.LENGTH_SHORT).show();
-                        //Go to the fuel find view by an intent and pass the vehicle type
-                        Intent sendToLocationView = new Intent(SignIn.this, StationView.class);
-                        sendToLocationView.putExtra("USER_VEHICLE_TYPE", vehiceType);
-                        startActivity(sendToLocationView);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,url, new JSONObject(body),
+                response -> {
+                    try {
+                        VolleyLog.v("Response:%n %s", response.toString(4));
+                    } catch (JSONException e){
+                        e.printStackTrace();
                     }
+                    Toast.makeText(SignIn.this,"Signed in", Toast.LENGTH_SHORT).show();
+                    //Go to the fuel find view by an intent and pass the vehicle type
+                    Intent sendToLocationView = new Intent(SignIn.this, StationView.class);
+                    sendToLocationView.putExtra("USER_VEHICLE_TYPE", vehiceType);
+                    startActivity(sendToLocationView);
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -97,7 +97,9 @@ public class SignIn extends AppCompatActivity {
             }
         });
 
-        requestQueue = Volley.newRequestQueue(SignIn.this);
-        requestQueue.add(request);
+        if (request != null){
+            requestQueue.add(request);
+        }
+
     }
 }
