@@ -1,4 +1,4 @@
-package com.example.fuelex;
+package com.example.fuelex.Models;
 
 public class UserSignInModel {
     private String id;
