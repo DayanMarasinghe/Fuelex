@@ -10,21 +10,22 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.fuelex.Models.UserSignInModel;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import okhttp3.OkHttpClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import java.util.HashMap;
 
 public class SignIn extends AppCompatActivity {
 
     private ProgressBar progressPB;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,51 +63,41 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void postData(String fullName, String userName, String password, String nic, String vehiceType, String vehicleNo){
-        //display the progress bar
-        //progressPB.setVisibility(View.VISIBLE);
+        String url ="https://192.168.8.108:45455/signup";
 
-        OkHttpClient.Builder client = new OkHttpClient.Builder();
-        client.connectTimeout(10, TimeUnit.SECONDS);
-        client.readTimeout(10, TimeUnit.SECONDS);
-        client.writeTimeout(10, TimeUnit.SECONDS);
+        HashMap<String, String> body = new HashMap<String, String>();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://192.168.8.108:45455/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client.build())
-                .build();
+        body.put("userName",userName);
+        body.put("password",password);
+        body.put("fullName",fullName);
+        body.put("nic",nic);
+        body.put("vehicleType",vehiceType);
+        body.put("vehicleNumber",vehicleNo);
 
-        UserSignInAPI api = retrofit.create(UserSignInAPI.class);
-
-        UserSignInModel userModel = new UserSignInModel(fullName,userName,password,nic,vehiceType,vehicleNo);
-
-        Call<UserSignInModel> call = api.userSignUp(userModel);
-
-        call.enqueue(new Callback<UserSignInModel>() {
+        JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(body),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            VolleyLog.v("Response:%n %s", response.toString(4));
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(SignIn.this,"Signed in", Toast.LENGTH_SHORT).show();
+                        //Go to the fuel find view by an intent and pass the vehicle type
+                        Intent sendToLocationView = new Intent(SignIn.this, StationView.class);
+                        sendToLocationView.putExtra("USER_VEHICLE_TYPE", vehiceType);
+                        startActivity(sendToLocationView);
+                    }
+                }, new Response.ErrorListener() {
             @Override
-            public void onResponse(Call<UserSignInModel> call, Response<UserSignInModel> response) {
-                Toast.makeText(SignIn.this, "Successfully logged in",Toast.LENGTH_SHORT).show();
-
-                //progressPB.setVisibility(View.GONE);
-
-                //set the global variables vehicle type
-
-                //Go to the fuel find view by an intent and pass the vehicle type
-                Intent sendToLocationView = new Intent(SignIn.this, StationView.class);
-                sendToLocationView.putExtra("USER_VEHICLE_TYPE", vehiceType);
-                startActivity(sendToLocationView);
-            }
-
-            @Override
-            public void onFailure(Call<UserSignInModel> call, Throwable t) {
-                //progressPB.setVisibility(View.GONE);
-                Logger logger = Logger.getLogger(SignIn.class.getName());
-                logger.info("--------------------------------------------------------------------------------------");
-                logger.info(t.toString());
-                logger.info(call.toString());
-                logger.info("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-                Toast.makeText(SignIn.this, "Sign in failed, please try again", Toast.LENGTH_SHORT).show();
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SignIn.this,"Error when signing", Toast.LENGTH_SHORT).show();
+                VolleyLog.e("Error : ", error.getMessage());
             }
         });
+
+        requestQueue = Volley.newRequestQueue(SignIn.this);
+        requestQueue.add(request);
     }
 }
