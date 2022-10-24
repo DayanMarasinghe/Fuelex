@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -30,52 +29,51 @@ public class Login extends AppCompatActivity {
         passwordTxt = findViewById(R.id.ownerpw);
         loginbtn =  findViewById(R.id.cusloginbtn);
 
-        username = usernameTxt.getText().toString();
-        password = passwordTxt.getText().toString();
-
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // if(username.equals("")){
-                   // Toast.makeText(getApplicationContext(), "Please enter username", Toast.LENGTH_SHORT).show();
-               // }else if(password.equals("")){
-                  //  Toast.makeText(getApplicationContext(), "Please enter password", Toast.LENGTH_SHORT).show();
-               // }else{
-                    LoginRequest loginRequest = new LoginRequest();
-                    loginRequest.setUsername(username);
-                    loginRequest.setPassword(password);
 
-                FindCusomter(loginRequest);
+                username = usernameTxt.getText().toString();
+                password = passwordTxt.getText().toString();
 
-               // }
-            }
-        });
-
-    }
-
-    public void FindCusomter(LoginRequest loginRequest){
-        Call<LoginResponse> loginResponseCall = ApiClient.getService().FindCusomter(loginRequest);
-        loginResponseCall.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-
-                if(response.isSuccessful()){
-                    LoginResponse loginResponse = response.body();
-                    startActivity(new Intent(Login.this,StationView.class).putExtra("data",loginResponse));
-                    finish();
-
+                if(username.equals("") || password.equals("")){
+                    Toast.makeText(getApplicationContext(), "Please enter credentials", Toast.LENGTH_SHORT).show();
                 }else{
-                    String message = "An error occured please try again later...";
-                    Toast.makeText(Login.this,message,Toast.LENGTH_LONG).show();
+                    login();
                 }
             }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-
-                String message = t.getLocalizedMessage();
-                Toast.makeText(Login.this,message,Toast.LENGTH_LONG).show();
-            }
         });
+
     }
+
+    private void login(){
+
+
+    }
+
+//    public void FindCusomter(LoginRequest loginRequest){
+//        Call<LoginResponse> loginResponseCall = ApiClient.getService().FindCusomter(loginRequest);
+//        loginResponseCall.enqueue(new Callback<LoginResponse>() {
+//            @Override
+//            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+//
+//                if(response.isSuccessful()){
+//                    LoginResponse loginResponse = response.body();
+//                    startActivity(new Intent(Login.this,StationView.class).putExtra("data",loginResponse));
+//                    finish();
+//
+//                }else{
+//                    String message = "An error occured please try again later...";
+//                    Toast.makeText(Login.this,message,Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<LoginResponse> call, Throwable t) {
+//
+//                String message = t.getLocalizedMessage();
+//                Toast.makeText(Login.this,message,Toast.LENGTH_LONG).show();
+//            }
+//        });
+//    }
 }
