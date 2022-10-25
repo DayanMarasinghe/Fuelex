@@ -2,6 +2,7 @@ package com.example.fuelex;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +34,12 @@ public class UpdateCustomerTime extends AppCompatActivity {
         leftAfter = findViewById(R.id.leftafterbtn);
         leftBefore = findViewById(R.id.leftbeforebtn);
 
-        URL = "https://192.168.8.102:45457/api/Queue/+location+/+vehicleType+/+fuelType";
+        Intent receivedIntent = getIntent();
+        String receivedVType = receivedIntent.getStringExtra("USER_VEHICLE_TYPE");
+        String receivedLocation = receivedIntent.getStringExtra("USER_SELECTED_LOCATION");
+        String receivedFuelType = receivedIntent.getStringExtra("USER_SELECT_FUEL_TYPE");
+
+        URL = "https://192.168.8.102:45457/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
 
         joined.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +66,7 @@ public class UpdateCustomerTime extends AppCompatActivity {
         });
     }
 
+    //update number of vehicles in queue
     private void joinedQueue(){
         StringRequest putRequest = new StringRequest(Request.Method.PUT, URL,
                 new Response.Listener<String>() {
@@ -89,6 +96,7 @@ public class UpdateCustomerTime extends AppCompatActivity {
         requestQueue.add(putRequest);
     }
 
+    //update count of vehicles left after pumping fuel
     private void leftAfterPumping(){
         StringRequest putRequest = new StringRequest(Request.Method.PUT, URL,
                 new Response.Listener<String>() {
@@ -118,6 +126,7 @@ public class UpdateCustomerTime extends AppCompatActivity {
         requestQueue.add(putRequest);
     }
 
+    //update count of vehicles left without pumping fuel
     private void leftBeforePumping(){
         StringRequest putRequest = new StringRequest(Request.Method.PUT, URL,
                 new Response.Listener<String>() {

@@ -34,7 +34,6 @@ public class StationView extends AppCompatActivity {
     String URL = "";
     RequestQueue requestQueue;
     ListView locationList;
-    //String locList[] = {"Kandy", "Colombo", "wer","WERWRE","WERWRWRE","WERWRWER","WWERWRWRE","WERWRE"};
     String locList[];
 
     @Override
@@ -61,13 +60,14 @@ public class StationView extends AppCompatActivity {
         locationList.setAdapter(arrayAdapter);
 
         //Go to the fuel list view by an intent and pass the vehicle type
-        Intent sendToFuelView = new Intent(StationView.this, StationView.class);
+        Intent sendToFuelView = new Intent(StationView.this, OneStationView.class);
         sendToFuelView.putExtra("USER_VEHICLE_TYPE", receivedVType);
         sendToFuelView.putExtra("USER_SELECTED_LOCATION", locList[1]);
         startActivity(sendToFuelView);
 
     }
 
+    //calling the backend and getting all the available stations
     private void getStationList(){
 
         requestQueue = Volley.newRequestQueue(this);

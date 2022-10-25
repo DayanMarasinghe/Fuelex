@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,6 +31,7 @@ public class Login extends AppCompatActivity {
     EditText usernameTxt;
     EditText passwordTxt;
     Button loginbtn;
+    TextView signinbtn;
     //String userName, password;
 
     @Override
@@ -40,6 +42,7 @@ public class Login extends AppCompatActivity {
         usernameTxt = findViewById(R.id.ownerun);
         passwordTxt = findViewById(R.id.ownerpw);
         loginbtn =  findViewById(R.id.cusloginbtn);
+        signinbtn = findViewById(R.id.cussignins);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +58,19 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        signinbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, SignIn.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public static final String SHARED_PREF_NAME = "com.example.fuelex.userLogin";
     public static final String ROLL_SHARED_PREF = "userName";
 
+    //customer login method
     private void login(){
 
         String userName = usernameTxt.getText().toString();
@@ -113,30 +124,4 @@ public class Login extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
-
-//    public void FindCusomter(LoginRequest loginRequest){
-//        Call<LoginResponse> loginResponseCall = ApiClient.getService().FindCusomter(loginRequest);
-//        loginResponseCall.enqueue(new Callback<LoginResponse>() {
-//            @Override
-//            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-//
-//                if(response.isSuccessful()){
-//                    LoginResponse loginResponse = response.body();
-//                    startActivity(new Intent(Login.this,StationView.class).putExtra("data",loginResponse));
-//                    finish();
-//
-//                }else{
-//                    String message = "An error occured please try again later...";
-//                    Toast.makeText(Login.this,message,Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<LoginResponse> call, Throwable t) {
-//
-//                String message = t.getLocalizedMessage();
-//                Toast.makeText(Login.this,message,Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
 }
