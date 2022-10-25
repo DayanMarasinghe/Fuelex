@@ -2,6 +2,7 @@ package com.example.fuelex;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,10 +48,14 @@ public class EnterFuelStatus extends AppCompatActivity {
         });
     }
 
+    //update the fuel status
     private void updateFuelStatus(){
         String aTime = arrivalTime.getText().toString();
         String fTime = finishTime.getText().toString();
         String fuelType, Diesel = "", Petrol92 = "", Petrol95 = "";
+
+        Intent receivedIntent = getIntent();
+        String receivedLocation = receivedIntent.getStringExtra("USER_SELECTED_LOCATION");
 
         if(diesel.isChecked()){
             fuelType = Diesel;
@@ -60,7 +65,7 @@ public class EnterFuelStatus extends AppCompatActivity {
             fuelType = Petrol95;
         }
 
-        String url = "http://192.168.8.102:45456/api/FuelType/"+fuelType+"/location";
+        String url = "http://192.168.8.102:45456/api/FuelType/"+fuelType+"/"+receivedLocation;
 
         StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
                 new Response.Listener<String>() {

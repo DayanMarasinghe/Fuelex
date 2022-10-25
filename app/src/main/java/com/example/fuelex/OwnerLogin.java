@@ -27,6 +27,7 @@ public class OwnerLogin extends AppCompatActivity {
     EditText usernameTxt;
     EditText passwordTxt;
     Button loginbtn;
+    String location="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class OwnerLogin extends AppCompatActivity {
     private void ownerLogin(){
         String userName = usernameTxt.getText().toString();
         String password = passwordTxt.getText().toString();
-        String LOGIN_URL = "";
+        String LOGIN_URL = "https://192.168.8.102:45457/api/FuelStation";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
                 new Response.Listener<String>() {
@@ -74,6 +75,8 @@ public class OwnerLogin extends AppCompatActivity {
 
                             editor.apply();
 
+                            //location = response.location;
+
                             Intent intent = new Intent(OwnerLogin.this, EnterFuelStatus.class);
                             startActivity(intent);
                             Toast.makeText(OwnerLogin.this, "Login Successful", Toast.LENGTH_SHORT).show();
@@ -82,6 +85,9 @@ public class OwnerLogin extends AppCompatActivity {
                         } else {
                             Toast.makeText(OwnerLogin.this, "Invalid", Toast.LENGTH_LONG).show();
                         }
+
+                        Intent sendToFuelStatus = new Intent(OwnerLogin.this, EnterFuelStatus.class);
+                        sendToFuelStatus.putExtra("USER_SELECTED_LOCATION", location);
                     }
                 },
 

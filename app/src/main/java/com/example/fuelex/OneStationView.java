@@ -23,10 +23,10 @@ import org.json.JSONObject;
 public class OneStationView extends AppCompatActivity {
     String URL = "";
     RequestQueue requestQueue;
-    ListView fuelTypeList, avaialableQtyList ,arrivleTimeList;
-    String ftList[] = {"Diesel", "Petrol","Octane 92", "Octane 95","Oil 1","Oil 2"};
-    Integer avaQtyList[] = {10,20,30,40,100,90};
-    String arrTimeList[] = {"10AM", "7PM","3:30PM","6AM","9PM","12AM"};
+    ListView fuelTypeList;
+    String ftList[];
+    Integer avaQtyList[];
+    String arrTimeList[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class OneStationView extends AppCompatActivity {
         getFuelList();
 
         //Go to the fuel list view by an intent and pass the vehicle type
-        Intent sendToQueueView = new Intent(OneStationView.this, StationView.class);
+        Intent sendToQueueView = new Intent(OneStationView.this, QueueView.class);
         sendToQueueView.putExtra("USER_VEHICLE_TYPE", receivedVType);
         sendToQueueView.putExtra("USER_SELECTED_LOCATION", receivedLocation);
         sendToQueueView.putExtra("USER_SELECT_FUEL_TYPE",ftList[1]);
@@ -56,6 +56,7 @@ public class OneStationView extends AppCompatActivity {
         fuelTypeList.setAdapter(new FuelListCusAdapter(this,ftList,avaQtyList,arrTimeList));
     }
 
+    //get the available fuel types for a station
     private void getFuelList(){
         requestQueue = Volley.newRequestQueue(this);
 

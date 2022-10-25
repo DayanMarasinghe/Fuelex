@@ -8,22 +8,22 @@ import android.os.Handler;
 
 public class SplashScreen extends AppCompatActivity {
 
-//    private static int SPLASH_TIME_OUT = 4000;
+    private static int SPLASH_TIME_OUT = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
-//        getSupportActionBar().hide();
-//
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Intent homeIntent = new Intent(SplashScreen.this,Pivot.class);
-//                startActivity(homeIntent);
-//                finish();
-//            }
-//        },SPLASH_TIME_OUT);
+        getSupportActionBar().hide();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent homeIntent = new Intent(SplashScreen.this,Pivot.class);
+                startActivity(homeIntent);
+                finish();
+            }
+        },SPLASH_TIME_OUT);
     }
 }

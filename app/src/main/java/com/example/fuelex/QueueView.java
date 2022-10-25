@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +25,13 @@ import org.json.JSONObject;
 public class QueueView extends AppCompatActivity {
     String URL = "";
     RequestQueue requestQueue;
-    String location = "Kandy";
-    String fuelType = "Petrol";
-    double avgTime = 12.0;
-    int currCount = 10;
-    int beforeCount = 2;
-    int afterCount = 5;
+    String location;
+    String fuelType;
+    double avgTime;
+    int currCount;
+    int beforeCount;
+    int afterCount;
+    Button backBtn, waitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,8 @@ public class QueueView extends AppCompatActivity {
         TextView afterCountInput = findViewById(R.id.id_AfterLeaveInput);
         ImageView imgStatus = (ImageView) findViewById(R.id.id_StatusImg);
 
+        getQueueDetails();
+
         //setting values
         avgTimeInput.setText(Integer.toString((int) avgTime));
         locationInput.setText(receivedLocation);
@@ -69,8 +74,29 @@ public class QueueView extends AppCompatActivity {
         } else{
             imgStatus.setImageResource(R.drawable.moderate_grp);
         }
+
+        waitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendToUpCusTime = new Intent(QueueView.this, UpdateCustomerTime.class);
+                sendToUpCusTime.putExtra("USER_VEHICLE_TYPE", receivedVType);
+                sendToUpCusTime.putExtra("USER_SELECTED_LOCATION",receivedLocation);
+                sendToUpCusTime.putExtra("USER_SELECT_FUEL_TYPE",receivedFuelType);
+                startActivity(sendToUpCusTime);
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendToUpCusTime = new Intent(QueueView.this, StationView.class);
+                startActivity(sendToUpCusTime);
+            }
+        });
+
     }
 
+    //get the queue details for the fuel type
     private void getQueueDetails(){
         requestQueue = Volley.newRequestQueue(this);
 
