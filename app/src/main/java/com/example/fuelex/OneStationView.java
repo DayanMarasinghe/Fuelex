@@ -2,10 +2,12 @@ package com.example.fuelex;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,10 +33,24 @@ public class OneStationView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.one_station_view);
 
+        //get vehicle type from intent
+        Intent recievedIntent = getIntent();
+        String receivedVType = recievedIntent.getStringExtra("USER_VEHICLE_TYPE");
+        String receivedLocation = recievedIntent.getStringExtra("USER_SELECTED_LOCATION");
+
+        URL ="http://192.168.8.108:45455/api/FuelType/"+receivedLocation;
+
         //set the list component id
         fuelTypeList = (ListView) findViewById(R.id.id_ListFuelTypes);
 
         getFuelList();
+
+        //Go to the fuel list view by an intent and pass the vehicle type
+        Intent sendToQueueView = new Intent(OneStationView.this, StationView.class);
+        sendToQueueView.putExtra("USER_VEHICLE_TYPE", receivedVType);
+        sendToQueueView.putExtra("USER_SELECTED_LOCATION", receivedLocation);
+        sendToQueueView.putExtra("USER_SELECT_FUEL_TYPE",ftList[1]);
+        startActivity(sendToQueueView);
 
         //set content for fuel type list
         fuelTypeList.setAdapter(new FuelListCusAdapter(this,ftList,avaQtyList,arrTimeList));
@@ -70,6 +86,7 @@ public class OneStationView extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(OneStationView.this,error.getMessage(),Toast.LENGTH_LONG).show();
                 Log.d("error",error.toString());
             }
         });
