@@ -46,6 +46,8 @@ public class StationView extends AppCompatActivity {
         Intent receiveVType = getIntent();
         String receivedVType = receiveVType.getStringExtra("USER_VEHICLE_TYPE");
 
+        URL = "http://192.168.8.108:45455/api/FuelStation";
+
         Toast.makeText(StationView.this,"Vehicle Type " + receivedVType, Toast.LENGTH_SHORT).show();
 
         //set the lis component id
@@ -57,6 +59,12 @@ public class StationView extends AppCompatActivity {
         //set the content for the list
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.location_list, R.id.id_LocationName,locList);
         locationList.setAdapter(arrayAdapter);
+
+        //Go to the fuel list view by an intent and pass the vehicle type
+        Intent sendToFuelView = new Intent(StationView.this, StationView.class);
+        sendToFuelView.putExtra("USER_VEHICLE_TYPE", receivedVType);
+        sendToFuelView.putExtra("USER_SELECTED_LOCATION", locList[1]);
+        startActivity(sendToFuelView);
 
     }
 
@@ -81,6 +89,7 @@ public class StationView extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(StationView.this,error.getMessage(),Toast.LENGTH_LONG).show();
                 Log.d("error",error.toString());
             }
         });
