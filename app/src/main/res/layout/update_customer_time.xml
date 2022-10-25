@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/joinbtn"
         android:layout_width="331dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="63dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/queuenametv" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/leftafterbtn"
         android:layout_width="331dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="63dp"
@@ -41,11 +41,11 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/joinbtn"
         tools:ignore="TextContrastCheck,TextContrastCheck" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/leftbeforebtn"
         android:layout_width="331dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="63dp"
@@ -55,6 +55,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/leftafterbtn"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
