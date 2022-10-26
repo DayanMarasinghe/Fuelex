@@ -45,7 +45,7 @@ public class StationView extends AppCompatActivity {
         Intent receiveVType = getIntent();
         String receivedVType = receiveVType.getStringExtra("USER_VEHICLE_TYPE");
 
-        URL = "http://192.168.8.108:45455/api/FuelStation";
+        URL = "http://192.168.8.101:8081/api/FuelStation";
 
         Toast.makeText(StationView.this,"Vehicle Type " + receivedVType, Toast.LENGTH_SHORT).show();
 
@@ -56,14 +56,14 @@ public class StationView extends AppCompatActivity {
         getStationList();
 
         //set the content for the list
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.location_list, R.id.id_LocationName,locList);
-        locationList.setAdapter(arrayAdapter);
+        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.location_list, R.id.id_LocationName,locList);
+        //locationList.setAdapter(arrayAdapter);
 
         //Go to the fuel list view by an intent and pass the vehicle type
-        Intent sendToFuelView = new Intent(StationView.this, OneStationView.class);
-        sendToFuelView.putExtra("USER_VEHICLE_TYPE", receivedVType);
-        sendToFuelView.putExtra("USER_SELECTED_LOCATION", locList[1]);
-        startActivity(sendToFuelView);
+        //Intent sendToFuelView = new Intent(StationView.this, OneStationView.class);
+        //sendToFuelView.putExtra("USER_VEHICLE_TYPE", receivedVType);
+        //sendToFuelView.putExtra("USER_SELECTED_LOCATION", locList[1]);
+        //startActivity(sendToFuelView);
 
     }
 
@@ -75,13 +75,16 @@ public class StationView extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Logger logger = Logger.getLogger(StationView.class.getName());
+                logger.info("--------------------------------------------------------------------------------------");
+                logger.info(response);
                 try {
-                    JSONObject object =new JSONObject(response);
-                    JSONArray array=object.getJSONArray("location");
-                    for(int i=0;i<array.length();i++) {
-                        JSONObject object1=array.getJSONObject(i);
-                        locList[i] = object1.toString();
+                    JSONArray object =new JSONArray(response);
+                    for (int j = 0,i=0;j< object.length();j++,i++){
+                        JSONObject array=object.getJSONObject(j);
+                        locList[i] = array.getString("location");
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

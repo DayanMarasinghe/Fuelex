@@ -22,16 +22,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.logging.Logger;
+
 public class QueueView extends AppCompatActivity {
     String URL = "";
     RequestQueue requestQueue;
     String location;
-    String fuelType;
+    String fuelType, vehicleType;
     double avgTime;
     int currCount;
     int beforeCount;
     int afterCount;
     Button backBtn, waitBtn;
+    TextView avgTimeInput,locationInput,fuelInput,currCountInput,beforeCountInput,afterCountInput;
+    ImageView imgStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,47 +46,34 @@ public class QueueView extends AppCompatActivity {
         String receivedVType = recievedIntent.getStringExtra("USER_VEHICLE_TYPE");
         String receivedLocation = recievedIntent.getStringExtra("USER_SELECTED_LOCATION");
         String receivedFuelType = recievedIntent.getStringExtra("USER_SELECT_FUEL_TYPE");
+        waitBtn = findViewById(R.id.id_BtnStayInQueue);
+        backBtn = findViewById(R.id.id_btnQueueBack);
 
         //set URL string
-        URL ="http://192.168.8.108:45455/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
+        URL ="http://192.168.8.101:8081/api/Queue/Colombo/Bus/Diesel";//+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
+
 
 
         //set the view elements
-        TextView avgTimeInput = findViewById(R.id.id_AvgTimeInput);
-        TextView locationInput = findViewById(R.id.id_QueueViewHeadLocationInput);
-        TextView fuelInput = findViewById(R.id.id_QueueViewHeadFuelTypeInput);
-        TextView currCountInput = findViewById(R.id.id_CurCountInput);
-        TextView beforeCountInput = findViewById(R.id.id_BeforeLeaveInput);
-        TextView afterCountInput = findViewById(R.id.id_AfterLeaveInput);
-        ImageView imgStatus = (ImageView) findViewById(R.id.id_StatusImg);
+         avgTimeInput = findViewById(R.id.id_AvgTimeInput);
+         locationInput = findViewById(R.id.id_QueueViewHeadLocationInput);
+         fuelInput = findViewById(R.id.id_QueueViewHeadFuelTypeInput);
+         currCountInput = findViewById(R.id.id_CurCountInput);
+         beforeCountInput = findViewById(R.id.id_BeforeLeaveInput);
+         afterCountInput = findViewById(R.id.id_AfterLeaveInput);
+         imgStatus = (ImageView) findViewById(R.id.id_StatusImg);
 
         getQueueDetails();
 
-        //setting values
-        avgTimeInput.setText(Integer.toString((int) avgTime));
-        locationInput.setText(receivedLocation);
-        fuelInput.setText(receivedFuelType);
-        currCountInput.setText(Integer.toString(currCount));
-        beforeCountInput.setText(Integer.toString(beforeCount));
-        afterCountInput.setText(Integer.toString(afterCount));
-
-        //check the conditions before setting the status
-        if (afterCount < beforeCount){
-            imgStatus.setImageResource(R.drawable.slow_grp);
-        } else if(afterCount > beforeCount){
-            imgStatus.setImageResource(R.drawable.fast_grp);
-        } else{
-            imgStatus.setImageResource(R.drawable.moderate_grp);
-        }
 
         waitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent sendToUpCusTime = new Intent(QueueView.this, UpdateCustomerTime.class);
-                sendToUpCusTime.putExtra("USER_VEHICLE_TYPE", receivedVType);
-                sendToUpCusTime.putExtra("USER_SELECTED_LOCATION",receivedLocation);
-                sendToUpCusTime.putExtra("USER_SELECT_FUEL_TYPE",receivedFuelType);
-                startActivity(sendToUpCusTime);
+//                Intent sendToUpCusTime = new Intent(QueueView.this, UpdateCustomerTime.class);
+//                sendToUpCusTime.putExtra("USER_VEHICLE_TYPE", receivedVType);
+//                sendToUpCusTime.putExtra("USER_SELECTED_LOCATION",receivedLocation);
+//                sendToUpCusTime.putExtra("USER_SELECT_FUEL_TYPE",receivedFuelType);
+//                startActivity(sendToUpCusTime);
             }
         });
 
@@ -104,12 +95,36 @@ public class QueueView extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 try {
+                    Logger logger = Logger.getLogger(QueueView.class.getName());
+                    logger.info("--------------------------------------------------------------------------------------");
+                    logger.info(response);
+
                     JSONObject object =new JSONObject(response);
                     location = object.getString("location");
-                    fuelType = object.getString("type");
+                    vehicleType = object.getString("vehicleType");
+                    fuelType = object.getString("fuelType");
                     currCount = object.getInt("currentCount");
                     afterCount = object.getInt("afterCount");
                     beforeCount = object.getInt("beforeCount");
+
+
+                    //setting values
+                    avgTimeInput.setText(Integer.toString((int) avgTime));
+                    locationInput.setText(location);
+                    fuelInput.setText(fuelType);
+                    currCountInput.setText(Integer.toString(currCount));
+                    beforeCountInput.setText(Integer.toString(beforeCount));
+                    afterCountInput.setText(Integer.toString(afterCount));
+
+                    //check the conditions before setting the status
+                    if (afterCount < beforeCount){
+                        imgStatus.setImageResource(R.drawable.slow_grp);
+                    } else if(afterCount > beforeCount){
+                        imgStatus.setImageResource(R.drawable.fast_grp);
+                    } else{
+                        imgStatus.setImageResource(R.drawable.moderate_grp);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
