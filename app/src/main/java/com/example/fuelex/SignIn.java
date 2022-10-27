@@ -57,7 +57,7 @@ public class SignIn extends AppCompatActivity {
                 }
 
                 //call the post method
-                postData(fullNameET.getText().toString(), userNameET.getText().toString(), passwordET.getText().toString(), nicET.getText().toString(), vehicleNoET.getText().toString(), vehicleTypeET.getText().toString());
+                postData(fullNameET.getText().toString(), userNameET.getText().toString(), passwordET.getText().toString(), nicET.getText().toString(), vehicleTypeET.getText().toString(), vehicleNoET.getText().toString());
 
             }
         });

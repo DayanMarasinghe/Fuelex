@@ -1,12 +1,16 @@
 package com.example.fuelex;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,9 +39,10 @@ public class StationView extends AppCompatActivity {
     String URL = "";
     RequestQueue requestQueue;
     ListView locationList;
-//    String locList[];
     ArrayList<String> locList = new ArrayList<String>();
     Logger logger = Logger.getLogger(StationView.class.getName());
+    SharedPreferences pref;
+    String receivedVType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,7 @@ public class StationView extends AppCompatActivity {
 
         //get vehicle type from intent
         Intent receiveVType = getIntent();
-        String receivedVType = receiveVType.getStringExtra("USER_VEHICLE_TYPE");
+        receivedVType = receiveVType.getStringExtra("USER_VEHICLE_TYPE");
 
         URL = "http://192.168.8.108:8081/api/FuelStation";
 
@@ -58,14 +63,27 @@ public class StationView extends AppCompatActivity {
         //calling the endpoint
         getStationList();
 
+        //Set vehicle type as a session variable
+        pref = getSharedPreferences("user_vehicledetails",MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("user_vtype",receivedVType);
+        editor.commit();
 
 
-        //Go to the fuel list view by an intent and pass the vehicle type
-        //Intent sendToFuelView = new Intent(StationView.this, OneStationView.class);
-        //sendToFuelView.putExtra("USER_VEHICLE_TYPE", receivedVType);
-        //sendToFuelView.putExtra("USER_SELECTED_LOCATION", locList[1]);
-        //startActivity(sendToFuelView);
+    }
+    public void doThisOnClick(View view){
+        TextView txtView = findViewById(R.id.id_LocationName);
+        //set selected location as a session details on the click
+        pref = getSharedPreferences("user_vehicledetails",MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("user_location",txtView.getText().toString());
+        editor.commit();
 
+        //Go to the fuel list view by an intent and pass the vehicle type and selected location
+        Intent sendToFuelView = new Intent(StationView.this, OneStationView.class);
+        sendToFuelView.putExtra("USER_VEHICLE_TYPE",receivedVType );
+        sendToFuelView.putExtra("USER_SELECTED_LOCATION", txtView.getText().toString());
+        startActivity(sendToFuelView);
     }
 
     //calling the backend and getting all the available stations

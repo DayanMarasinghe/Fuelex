@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -20,40 +22,40 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 public class OneStationView extends AppCompatActivity {
-    String URL = "";
+    String URL,receivedVType, receivedLocation;
     RequestQueue requestQueue;
     ListView fuelTypeList;
-    String ftList[];
-    Integer avaQtyList[];
-    String arrTimeList[];
+    ArrayList<String> ftList = new ArrayList<String>();
+    ArrayList<Integer> avaQtyList = new ArrayList<Integer>();
+    ArrayList<String> arrTimeList = new ArrayList<String>();
+    Logger logger = Logger.getLogger(StationView.class.getName());
+    TextView locName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.one_station_view);
 
+        locName = findViewById(R.id.id_LocationStringInput);
+
         //get vehicle type from intent
         Intent recievedIntent = getIntent();
-        String receivedVType = recievedIntent.getStringExtra("USER_VEHICLE_TYPE");
-        String receivedLocation = recievedIntent.getStringExtra("USER_SELECTED_LOCATION");
+        receivedVType = recievedIntent.getStringExtra("USER_VEHICLE_TYPE");
+        receivedLocation = recievedIntent.getStringExtra("USER_SELECTED_LOCATION");
 
-        URL ="http://192.168.8.108:45455/api/FuelType/"+receivedLocation;
+        URL ="http://192.168.8.108:8081/api/FuelType/"+receivedLocation;
+
+        locName.setText(receivedLocation);
 
         //set the list component id
         fuelTypeList = (ListView) findViewById(R.id.id_ListFuelTypes);
 
         getFuelList();
 
-        //Go to the fuel list view by an intent and pass the vehicle type
-        Intent sendToQueueView = new Intent(OneStationView.this, QueueView.class);
-        sendToQueueView.putExtra("USER_VEHICLE_TYPE", receivedVType);
-        sendToQueueView.putExtra("USER_SELECTED_LOCATION", receivedLocation);
-        sendToQueueView.putExtra("USER_SELECT_FUEL_TYPE",ftList[1]);
-        startActivity(sendToQueueView);
-
-        //set content for fuel type list
-        fuelTypeList.setAdapter(new FuelListCusAdapter(this,ftList,avaQtyList,arrTimeList));
     }
 
     //get the available fuel types for a station
@@ -63,23 +65,25 @@ public class OneStationView extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                logger.info("--------------------------------------------------------------------------------------");
+                logger.info(response);
                 try {
-                    JSONObject object =new JSONObject(response);
-                    JSONArray arrayType=object.getJSONArray("type");
-                    for(int i=0;i<arrayType.length();i++) {
-                        JSONObject object1=arrayType.getJSONObject(i);
-                        ftList[i] = object1.toString();
+                    JSONArray array =new JSONArray(response);
+                    for (int j = 0,i=0;j< array.length();j++,i++) {
+                        JSONObject obj = array.getJSONObject(j);
+                        ftList.add(obj.getString("type"));
+                        avaQtyList.add(obj.getInt("quantity"));
+                        arrTimeList.add(obj.getString("arrivalTime"));
                     }
-                    JSONArray arrayquantity=object.getJSONArray("quantity");
-                    for(int i=0;i<arrayquantity.length();i++) {
-                        JSONObject object1=arrayquantity.getJSONObject(i);
-                        avaQtyList[i] = object1.getInt(object1.toString());
-                    }
-                    JSONArray arrayarrivalTime=object.getJSONArray("arrivalTime");
-                    for(int i=0;i<arrayarrivalTime.length();i++) {
-                        JSONObject object1=arrayarrivalTime.getJSONObject(i);
-                        arrTimeList[i] = object1.toString();
-                    }
+
+                    //convert array list to arrays
+                    String[] passFuelList = ftList.toArray(new String[0]);
+                    Integer[] passQtyList = avaQtyList.toArray(new Integer[0]);
+                    String[] passTimeList = arrTimeList.toArray(new String[0]);
+
+                    //set the content to the text view and the list
+                    fuelTypeList.setAdapter(new FuelListCusAdapter(OneStationView.this,passFuelList,passQtyList,passTimeList));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -92,5 +96,15 @@ public class OneStationView extends AppCompatActivity {
             }
         });
         requestQueue.add(request);
+    }
+
+    public void eventOnGoToQueue(View view){
+        TextView txtView = findViewById(R.id.id_FuelNameInput);
+        //Go to the fuel list view by an intent and pass the vehicle type on button click
+        Intent sendToQueueView = new Intent(OneStationView.this, QueueView.class);
+        sendToQueueView.putExtra("USER_VEHICLE_TYPE", receivedVType);
+        sendToQueueView.putExtra("USER_SELECTED_LOCATION", receivedLocation);
+        sendToQueueView.putExtra("USER_SELECT_FUEL_TYPE",txtView.getText().toString());
+        startActivity(sendToQueueView);
     }
 }
