@@ -3,48 +3,49 @@ package com.example.fuelex;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
-import java.util.Map;
+import java.util.logging.Logger;
 
 public class OwnerLogin extends AppCompatActivity {
 
     EditText usernameTxt;
     EditText passwordTxt;
     Button loginbtn;
-    String location="";
+    String location, userName, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_login);
 
-        usernameTxt = findViewById(R.id.ownerun);
-        passwordTxt = findViewById(R.id.ownerpw);
+        usernameTxt = findViewById(R.id.ownerUN);
+        passwordTxt = findViewById(R.id.ownerPW);
         loginbtn =  findViewById(R.id.ownlogintbn);
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = usernameTxt.getText().toString();
-                String password = passwordTxt.getText().toString();
+                 userName = usernameTxt.getText().toString();
+                 password = passwordTxt.getText().toString();
 
-                if(userName.equals("") || password.equals("")){
+                if(userName.isEmpty()||password.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Please enter credentials", Toast.LENGTH_SHORT).show();
                 }else{
                     ownerLogin();
@@ -53,63 +54,50 @@ public class OwnerLogin extends AppCompatActivity {
         });
     }
 
-    public static final String SHARED_PREF_NAME = "com.example.fuelex.userLogin";
-    public static final String ROLL_SHARED_PREF = "userName";
-
     private void ownerLogin(){
-        String userName = usernameTxt.getText().toString();
-        String password = passwordTxt.getText().toString();
-        String LOGIN_URL = "https://192.168.8.102:45457/api/FuelStation";
+        String LOGIN_URL = "http://192.168.8.103:8081/api/FuelStation";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", "" + response);
+        HashMap<String, String> body = new HashMap<String, String>();
 
-                        if (response.equals("success")) {
-                            SharedPreferences sp = OwnerLogin.this.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+        body.put("userName",userName);
+        body.put("password",password);
 
-                            SharedPreferences.Editor editor = sp.edit();
-                            editor.putString(ROLL_SHARED_PREF, userName);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-                            editor.apply();
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, LOGIN_URL,new JSONObject(body),
 
-                            //location = response.location;
+                response -> {
+                    try {
+                        VolleyLog.v("Response:%n %s", response.toString(4));
 
-                            Intent intent = new Intent(OwnerLogin.this, EnterFuelStatus.class);
-                            startActivity(intent);
-                            Toast.makeText(OwnerLogin.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        } else if (response.equals("failure")) {
-                            Toast.makeText(OwnerLogin.this, "Username or Password is not valid", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(OwnerLogin.this, "Invalid", Toast.LENGTH_LONG).show();
-                        }
+                        Logger logger = Logger.getLogger(Login.class.getName());
+                        logger.info("--------------------------------------------------------------------------------------");
+                        logger.info(response.toString());
 
-                        Intent sendToFuelStatus = new Intent(OwnerLogin.this, EnterFuelStatus.class);
-                        sendToFuelStatus.putExtra("USER_SELECTED_LOCATION", location);
+                        location = response.getString("location");
+
+                    } catch (JSONException e){
+                        e.printStackTrace();
                     }
+
+                    //vehicleType = response.vehicleType.toString();
+                    Toast.makeText(OwnerLogin.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(OwnerLogin.this, EnterFuelStatus.class);
+                    intent.putExtra("OWNER_LOCATION", location);
+                    startActivity(intent);
                 },
+
 
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(OwnerLogin.this, "Error !!!", Toast.LENGTH_LONG).show();
+                        VolleyLog.e("Error : ", error.getMessage());
                     }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("userName", userName);
-                params.put("password", password);
+                });
 
-                //returning parameter
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        if (stringRequest != null) {
+            requestQueue.add(stringRequest);
+        }
     }
 }
