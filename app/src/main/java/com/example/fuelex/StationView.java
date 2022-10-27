@@ -24,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -34,7 +35,9 @@ public class StationView extends AppCompatActivity {
     String URL = "";
     RequestQueue requestQueue;
     ListView locationList;
-    String locList[];
+//    String locList[];
+    ArrayList<String> locList = new ArrayList<String>();
+    Logger logger = Logger.getLogger(StationView.class.getName());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class StationView extends AppCompatActivity {
         Intent receiveVType = getIntent();
         String receivedVType = receiveVType.getStringExtra("USER_VEHICLE_TYPE");
 
-        URL = "http://192.168.8.101:8081/api/FuelStation";
+        URL = "http://192.168.8.108:8081/api/FuelStation";
 
         Toast.makeText(StationView.this,"Vehicle Type " + receivedVType, Toast.LENGTH_SHORT).show();
 
@@ -55,9 +58,7 @@ public class StationView extends AppCompatActivity {
         //calling the endpoint
         getStationList();
 
-        //set the content for the list
-        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.location_list, R.id.id_LocationName,locList);
-        //locationList.setAdapter(arrayAdapter);
+
 
         //Go to the fuel list view by an intent and pass the vehicle type
         //Intent sendToFuelView = new Intent(StationView.this, OneStationView.class);
@@ -75,16 +76,17 @@ public class StationView extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Logger logger = Logger.getLogger(StationView.class.getName());
                 logger.info("--------------------------------------------------------------------------------------");
                 logger.info(response);
                 try {
-                    JSONArray object =new JSONArray(response);
-                    for (int j = 0,i=0;j< object.length();j++,i++){
-                        JSONObject array=object.getJSONObject(j);
-                        locList[i] = array.getString("location");
+                    JSONArray array =new JSONArray(response);
+                    for (int j = 0,i=0;j< array.length();j++,i++){
+                        JSONObject obj =array.getJSONObject(j);
+                        locList.add(obj.getString("location"));
                     }
-
+                    //set the content for the list
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(StationView.this, R.layout.location_list, R.id.id_LocationName,locList);
+                    locationList.setAdapter(arrayAdapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -94,8 +96,12 @@ public class StationView extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(StationView.this,error.getMessage(),Toast.LENGTH_LONG).show();
                 Log.d("error",error.toString());
+                logger.info(error.toString());
             }
         });
+
         requestQueue.add(request);
+
+
     }
 }
