@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 public class FuelListCusAdapter extends BaseAdapter {
     private String[] arr1, arr3;
-    private Integer[] arr2;
+    private String[] arr2;
     private LayoutInflater inflater;
 
-    public FuelListCusAdapter(Context context, String[] a1, Integer[] a2, String[] a3){
+    public FuelListCusAdapter(Context context, String[] a1, String[] a2, String[] a3){
         arr1 = a1;
         arr2 = a2;
         arr3 = a3;
@@ -49,7 +49,7 @@ public class FuelListCusAdapter extends BaseAdapter {
         tView.setText(arr1[position]);
 
         tView = (TextView)currentView.findViewById(R.id.id_QtyInput);
-        tView.setText(Integer.toString(arr2[position]));
+        tView.setText(arr2[position]);
 
         tView = (TextView)currentView.findViewById(R.id.id_ArrTimeInput);
         tView.setText(arr3[position]);

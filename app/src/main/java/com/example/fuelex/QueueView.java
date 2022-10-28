@@ -50,7 +50,7 @@ public class QueueView extends AppCompatActivity {
         backBtn = findViewById(R.id.id_btnQueueBack);
 
         //set URL string
-        URL ="http://192.168.8.108:8081/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
+        URL ="http://192.168.8.101:8081/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
 
 
 
@@ -69,11 +69,11 @@ public class QueueView extends AppCompatActivity {
         waitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent sendToUpCusTime = new Intent(QueueView.this, UpdateCustomerTime.class);
-//                sendToUpCusTime.putExtra("USER_VEHICLE_TYPE", receivedVType);
-//                sendToUpCusTime.putExtra("USER_SELECTED_LOCATION",receivedLocation);
-//                sendToUpCusTime.putExtra("USER_SELECT_FUEL_TYPE",receivedFuelType);
-//                startActivity(sendToUpCusTime);
+                Intent sendToUpCusTime = new Intent(QueueView.this, UpdateCustomerTime.class);
+                sendToUpCusTime.putExtra("USER_VEHICLE_TYPE", receivedVType);
+                sendToUpCusTime.putExtra("USER_SELECTED_LOCATION",receivedLocation);
+                sendToUpCusTime.putExtra("USER_SELECT_FUEL_TYPE",receivedFuelType);
+                startActivity(sendToUpCusTime);
             }
         });
 
