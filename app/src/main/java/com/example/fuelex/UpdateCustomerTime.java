@@ -13,17 +13,24 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class UpdateCustomerTime extends AppCompatActivity {
 
     Button joined, leftBefore, leftAfter;
-    String URL="";
+    String URL;
+    String receivedLocation;
+    String receivedFuelType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +43,18 @@ public class UpdateCustomerTime extends AppCompatActivity {
 
         Intent receivedIntent = getIntent();
         String receivedVType = receivedIntent.getStringExtra("USER_VEHICLE_TYPE");
-        String receivedLocation = receivedIntent.getStringExtra("USER_SELECTED_LOCATION");
-        String receivedFuelType = receivedIntent.getStringExtra("USER_SELECT_FUEL_TYPE");
+        receivedLocation = receivedIntent.getStringExtra("USER_SELECTED_LOCATION");
+        receivedFuelType = receivedIntent.getStringExtra("USER_SELECT_FUEL_TYPE");
 
-        URL = "https://192.168.8.102:45457/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
+        URL = "http://192.168.8.101:8081/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
 
         joined.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 joinedQueue();
+                Toast.makeText(UpdateCustomerTime.this,"Joined the "+receivedLocation+" "+receivedFuelType+" queue", Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -54,6 +63,8 @@ public class UpdateCustomerTime extends AppCompatActivity {
             public void onClick(View view) {
 
                 leftAfterPumping();
+                Toast.makeText(UpdateCustomerTime.this,"Leaving the "+receivedLocation+" "+receivedFuelType+" queue", Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -62,97 +73,92 @@ public class UpdateCustomerTime extends AppCompatActivity {
             public void onClick(View view) {
 
                 leftBeforePumping();
+                Toast.makeText(UpdateCustomerTime.this,"Leaving the "+receivedLocation+" "+receivedFuelType+" queue", Toast.LENGTH_LONG).show();
+
             }
         });
     }
 
     //update number of vehicles in queue
     private void joinedQueue(){
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", response);
-                    }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        HashMap<String, String> body = new HashMap<String, String>();
+        body.put("Status", "Arrival");
+
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, URL,new JSONObject(body),
+
+                response -> {
+                    VolleyLog.v("Response:%n %s", response.toString());
+
+                    Logger logger = Logger.getLogger(Login.class.getName());
+                    logger.info("--------------------------------------------------------------------------------------");
+                    logger.info(response.toString());
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(UpdateCustomerTime.this, "Error !!!", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(UpdateCustomerTime.this, "Error !!!", Toast.LENGTH_LONG).show();
                     }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("Status", "Arrival");
+                });
 
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(putRequest);
+
     }
 
     //update count of vehicles left after pumping fuel
     private void leftAfterPumping(){
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", response);
-                    }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        HashMap<String, String> body = new HashMap<String, String>();
+//        body.put("Id","");
+        body.put("Status", "AfterLeave");
+
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, URL,new JSONObject(body),
+
+                response -> {
+                    VolleyLog.v("Response:%n %s", response.toString());
+
+                    Logger logger = Logger.getLogger(Login.class.getName());
+                    logger.info("--------------------------------------------------------------------------------------");
+                    logger.info(response.toString());
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(UpdateCustomerTime.this, "Error !!!", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(UpdateCustomerTime.this, "Error !!!", Toast.LENGTH_LONG).show();
                     }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("Status", "AfterLeave");
+                });
 
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(putRequest);
     }
 
     //update count of vehicles left without pumping fuel
     private void leftBeforePumping(){
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", response);
-                    }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        HashMap<String, String> body = new HashMap<String, String>();
+        body.put("Status", "BeforeLeave");
+
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, URL,new JSONObject(body),
+
+                response -> {
+                    VolleyLog.v("Response:%n %s", response.toString());
+
+                    Logger logger = Logger.getLogger(Login.class.getName());
+                    logger.info("--------------------------------------------------------------------------------------");
+                    logger.info(response.toString());
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(UpdateCustomerTime.this, "Error !!!", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(UpdateCustomerTime.this, "Error !!!", Toast.LENGTH_LONG).show();
                     }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("Status", "BeforeLeave");
+                });
 
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(putRequest);
     }
 }

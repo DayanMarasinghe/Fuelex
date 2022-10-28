@@ -55,7 +55,7 @@ public class OwnerLogin extends AppCompatActivity {
     }
 
     private void ownerLogin(){
-        String LOGIN_URL = "http://192.168.8.103:8081/api/FuelStation";
+        String LOGIN_URL = "http://192.168.8.101:8081/api/FuelStation";
 
         HashMap<String, String> body = new HashMap<String, String>();
 
@@ -81,7 +81,7 @@ public class OwnerLogin extends AppCompatActivity {
                     }
 
                     //vehicleType = response.vehicleType.toString();
-                    Toast.makeText(OwnerLogin.this,"Login Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OwnerLogin.this,"Welcome"+userName, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(OwnerLogin.this, EnterFuelStatus.class);
                     intent.putExtra("OWNER_LOCATION", location);
                     startActivity(intent);

@@ -101,6 +101,5 @@ public class SignIn extends AppCompatActivity {
         if (request != null){
             requestQueue.add(request);
         }
-
     }
 }

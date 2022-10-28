@@ -1,5 +1,6 @@
 package com.example.fuelex;
 
+import androidx.annotation.AnyRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,17 +16,28 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class EnterFuelStatus extends AppCompatActivity {
 
     CheckBox diesel,petrol92,petrol95;
     EditText arrivalTime, finishTime;
     Button submitbtn;
+    String id,location,type,arrTime,finTime,quantity,status;
+    //int quantity;
+    //Boolean status;
+    String fuelType, receivedLocation;
+    String url_GET,url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,61 +51,110 @@ public class EnterFuelStatus extends AppCompatActivity {
         finishTime = findViewById(R.id.fuelfinishtime);
         submitbtn = findViewById(R.id.fuelstbtn);
 
+        Intent receivedIntent = getIntent();
+        receivedLocation = receivedIntent.getStringExtra("OWNER_LOCATION");
+
+
         submitbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                updateFuelStatus();
+                if(diesel.isChecked()){
+                    fuelType = "Diesel";
+                    url_GET = "http://192.168.8.101:8081/api/FuelType/"+receivedLocation+"/Diesel";
+                    url = "http://192.168.8.101:8081/api/FuelType/Diesel/"+receivedLocation;
+                }else if(petrol92.isChecked()){
+                    fuelType = "Petrol92";
+                    url_GET = "http://192.168.8.101:8081/api/FuelType/"+receivedLocation+"/Petrol92";
+                    url = "http://192.168.8.101:8081/api/FuelType/Petrol92/"+receivedLocation;
+                }else{
+                    fuelType = "Petrol95";
+                    url_GET = "http://192.168.8.101:8081/api/FuelType/"+receivedLocation+"/Petrol95";
+                    url = "http://192.168.8.101:8081/api/FuelType/Petrol95/"+receivedLocation;
+                }
+
+//                url_GET = "http://192.168.8.101:8081/api/FuelType/"+receivedLocation+"/"+fuelType;
+//                url = "http://192.168.8.101:8081/api/FuelType/"+fuelType+"/"+receivedLocation;
+
+                getFuelStatus();
+
             }
         });
     }
 
+    private void getFuelStatus(){
+        //get request
+
+
+        RequestQueue getRequestQueue = Volley.newRequestQueue(this);
+
+        StringRequest request = new StringRequest(Request.Method.GET, url_GET, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Logger logger = Logger.getLogger(EnterFuelStatus.class.getName());
+                logger.info("--------------------------------------------------------------------------------------");
+                logger.info(response.toString());
+                try {
+                    JSONObject object =new JSONObject(response);
+                    id = object.getString("id");
+                    location = object.getString("location");
+                    type = object.getString("type");
+                    status = object.getString("status");
+                    quantity = object.getString("quantity");
+                    arrTime = object.getString("arrivalTime");
+                    finTime = object.getString("finishTime");
+
+                    updateFuelStatus(id,status,quantity);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error",error.toString());
+            }
+        });
+        getRequestQueue.add(request);
+    }
+
     //update the fuel status
-    private void updateFuelStatus(){
+    private void updateFuelStatus(String id,String status,String quantity){
         String aTime = arrivalTime.getText().toString();
         String fTime = finishTime.getText().toString();
-        String fuelType, Diesel = "", Petrol92 = "", Petrol95 = "";
 
-        Intent receivedIntent = getIntent();
-        String receivedLocation = receivedIntent.getStringExtra("USER_SELECTED_LOCATION");
+        //update request
 
-        if(diesel.isChecked()){
-            fuelType = Diesel;
-        }else if(petrol92.isChecked()){
-            fuelType = Petrol92;
-        }else{
-            fuelType = Petrol95;
-        }
 
-        String url = "http://192.168.8.102:45456/api/FuelType/"+fuelType+"/"+receivedLocation;
+        HashMap<String, String> body = new HashMap<String, String>();
 
-        StringRequest putRequest = new StringRequest(Request.Method.PUT, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", response);
-                    }
+        body.put("id",id);
+        body.put("location",receivedLocation);
+        body.put("type",fuelType);
+        body.put("status",status);
+        body.put("quantity",quantity);
+        body.put("arrivalTime",aTime);
+        body.put("finishTime",fTime);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest putRequest = new JsonObjectRequest(Request.Method.PUT, url,new JSONObject(body),
+                response -> {
+                    VolleyLog.v("Response:%n %s", response.toString());
+
+                    Logger logger = Logger.getLogger(EnterFuelStatus.class.getName());
+                    logger.info("--------------------------------------------------------------------------------------");
+                    logger.info(response.toString());
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EnterFuelStatus.this, "Error !!!", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(EnterFuelStatus.this, "Error !!!", Toast.LENGTH_LONG).show();
+                        Logger logger = Logger.getLogger(EnterFuelStatus.class.getName());
+                        logger.info(error.toString());
                     }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("arrivalTime", aTime);
-                params.put("finishTime", fTime);
+                });
 
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(putRequest);
-
     }
 }

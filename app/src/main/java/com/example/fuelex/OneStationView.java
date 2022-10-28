@@ -30,7 +30,7 @@ public class OneStationView extends AppCompatActivity {
     RequestQueue requestQueue;
     ListView fuelTypeList;
     ArrayList<String> ftList = new ArrayList<String>();
-    ArrayList<Integer> avaQtyList = new ArrayList<Integer>();
+    ArrayList<String> avaQtyList = new ArrayList<String>();
     ArrayList<String> arrTimeList = new ArrayList<String>();
     Logger logger = Logger.getLogger(StationView.class.getName());
     TextView locName;
@@ -47,7 +47,7 @@ public class OneStationView extends AppCompatActivity {
         receivedVType = recievedIntent.getStringExtra("USER_VEHICLE_TYPE");
         receivedLocation = recievedIntent.getStringExtra("USER_SELECTED_LOCATION");
 
-        URL ="http://192.168.8.108:8081/api/FuelType/"+receivedLocation;
+        URL ="http://192.168.8.101:8081/api/FuelType/"+receivedLocation;
 
         locName.setText(receivedLocation);
 
@@ -72,13 +72,13 @@ public class OneStationView extends AppCompatActivity {
                     for (int j = 0,i=0;j< array.length();j++,i++) {
                         JSONObject obj = array.getJSONObject(j);
                         ftList.add(obj.getString("type"));
-                        avaQtyList.add(obj.getInt("quantity"));
+                        avaQtyList.add(obj.getString("quantity"));
                         arrTimeList.add(obj.getString("arrivalTime"));
                     }
 
                     //convert array list to arrays
                     String[] passFuelList = ftList.toArray(new String[0]);
-                    Integer[] passQtyList = avaQtyList.toArray(new Integer[0]);
+                    String[] passQtyList = avaQtyList.toArray(new String[0]);
                     String[] passTimeList = arrTimeList.toArray(new String[0]);
 
                     //set the content to the text view and the list

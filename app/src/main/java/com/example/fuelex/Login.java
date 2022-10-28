@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
     EditText passwordTxt;
     Button loginbtn;
     TextView signinbtn;
-    String userName, password,vehicleType;
+    String userName, password,vehicleType, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity {
     //customer login method
     private void login(){
 
-        String url ="http://192.168.8.103:8081/api/Customer";
+        String url ="http://192.168.8.101:8081/api/Customer";
 
         HashMap<String, String> body = new HashMap<String, String>();
 
@@ -92,13 +92,13 @@ public class Login extends AppCompatActivity {
                         logger.info(response.toString());
 
                         vehicleType = response.getString("vehicleType");
-
+                        name = response.getString("fullName");
                     } catch (JSONException e){
                         e.printStackTrace();
                     }
 
-                    //vehicleType = response.vehicleType.toString();
-                    Toast.makeText(Login.this,"Login Successful", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(Login.this,"Welcome "+name, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Login.this, StationView.class);
                     intent.putExtra("USER_VEHICLE_TYPE", vehicleType);
                     startActivity(intent);
@@ -110,6 +110,9 @@ public class Login extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(Login.this, "Error !!!", Toast.LENGTH_LONG).show();
                         VolleyLog.e("Error : ", error.getMessage());
+                        Logger logger = Logger.getLogger(Login.class.getName());
+                        logger.info("--------------------------------------------------------------------------------------");
+                        logger.info(error.toString());
                     }
                 });
 

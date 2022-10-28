@@ -53,7 +53,7 @@ public class StationView extends AppCompatActivity {
         Intent receiveVType = getIntent();
         receivedVType = receiveVType.getStringExtra("USER_VEHICLE_TYPE");
 
-        URL = "http://192.168.8.108:8081/api/FuelStation";
+        URL = "http://192.168.8.101:8081/api/FuelStation";
 
         Toast.makeText(StationView.this,"Vehicle Type " + receivedVType, Toast.LENGTH_SHORT).show();
 
