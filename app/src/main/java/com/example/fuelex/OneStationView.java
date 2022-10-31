@@ -47,7 +47,7 @@ public class OneStationView extends AppCompatActivity {
         receivedVType = recievedIntent.getStringExtra("USER_VEHICLE_TYPE");
         receivedLocation = recievedIntent.getStringExtra("USER_SELECTED_LOCATION");
 
-        URL ="http://192.168.8.101:8081/api/FuelType/"+receivedLocation;
+        URL ="http://192.168.8.129:8081/api/FuelType/"+receivedLocation;
 
         locName.setText(receivedLocation);
 

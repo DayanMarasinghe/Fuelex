@@ -65,7 +65,7 @@ public class SignIn extends AppCompatActivity {
 
     //create new user account
     private void postData(String fullName, String userName, String password, String nic, String vehiceType, String vehicleNo){
-        String url ="http://192.168.8.108:8081/signup";
+        String url ="http://192.168.8.129:8081/signup";
 
         HashMap<String, String> body = new HashMap<String, String>();
 

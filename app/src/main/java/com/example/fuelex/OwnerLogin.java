@@ -55,7 +55,7 @@ public class OwnerLogin extends AppCompatActivity {
     }
 
     private void ownerLogin(){
-        String LOGIN_URL = "http://192.168.8.101:8081/api/FuelStation";
+        String LOGIN_URL = "http://192.168.8.129:8081/api/FuelStation";
 
         HashMap<String, String> body = new HashMap<String, String>();
 

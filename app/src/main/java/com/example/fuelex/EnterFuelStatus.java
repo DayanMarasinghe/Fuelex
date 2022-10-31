@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -34,8 +35,7 @@ public class EnterFuelStatus extends AppCompatActivity {
     EditText arrivalTime, finishTime;
     Button submitbtn;
     String id,location,type,arrTime,finTime,quantity,status;
-    //int quantity;
-    //Boolean status;
+    ImageButton logout;
     String fuelType, receivedLocation;
     String url_GET,url;
 
@@ -50,6 +50,7 @@ public class EnterFuelStatus extends AppCompatActivity {
         arrivalTime = findViewById(R.id.fuelarrivaltime);
         finishTime = findViewById(R.id.fuelfinishtime);
         submitbtn = findViewById(R.id.fuelstbtn);
+        logout = findViewById(R.id.ownLogout);
 
         Intent receivedIntent = getIntent();
         receivedLocation = receivedIntent.getStringExtra("OWNER_LOCATION");
@@ -61,25 +62,34 @@ public class EnterFuelStatus extends AppCompatActivity {
 
                 if(diesel.isChecked()){
                     fuelType = "Diesel";
-                    url_GET = "http://192.168.8.101:8081/api/FuelType/"+receivedLocation+"/Diesel";
-                    url = "http://192.168.8.101:8081/api/FuelType/Diesel/"+receivedLocation;
+                    url_GET = "http://192.168.8.129:8081/api/FuelType/"+receivedLocation+"/Diesel";
+                    url = "http://192.168.8.129:8081/api/FuelType/Diesel/"+receivedLocation;
                 }else if(petrol92.isChecked()){
                     fuelType = "Petrol92";
-                    url_GET = "http://192.168.8.101:8081/api/FuelType/"+receivedLocation+"/Petrol92";
-                    url = "http://192.168.8.101:8081/api/FuelType/Petrol92/"+receivedLocation;
+                    url_GET = "http://192.168.8.129:8081/api/FuelType/"+receivedLocation+"/Petrol92";
+                    url = "http://192.168.8.129:8081/api/FuelType/Petrol92/"+receivedLocation;
                 }else{
                     fuelType = "Petrol95";
-                    url_GET = "http://192.168.8.101:8081/api/FuelType/"+receivedLocation+"/Petrol95";
-                    url = "http://192.168.8.101:8081/api/FuelType/Petrol95/"+receivedLocation;
+                    url_GET = "http://192.168.8.129:8081/api/FuelType/"+receivedLocation+"/Petrol95";
+                    url = "http://192.168.8.129:8081/api/FuelType/Petrol95/"+receivedLocation;
                 }
 
 //                url_GET = "http://192.168.8.101:8081/api/FuelType/"+receivedLocation+"/"+fuelType;
 //                url = "http://192.168.8.101:8081/api/FuelType/"+fuelType+"/"+receivedLocation;
 
                 getFuelStatus();
+                Toast.makeText(EnterFuelStatus.this, "Submitted Successfully", Toast.LENGTH_LONG).show();
 
             }
         });
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(EnterFuelStatus.this, Pivot.class);
+                    startActivity(intent);
+                }
+            });
+
     }
 
     private void getFuelStatus(){

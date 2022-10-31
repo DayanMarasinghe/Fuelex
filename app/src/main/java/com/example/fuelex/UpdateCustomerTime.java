@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,6 +32,7 @@ public class UpdateCustomerTime extends AppCompatActivity {
     String URL;
     String receivedLocation;
     String receivedFuelType;
+    ImageButton logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +42,14 @@ public class UpdateCustomerTime extends AppCompatActivity {
         joined = findViewById(R.id.joinbtn);
         leftAfter = findViewById(R.id.leftafterbtn);
         leftBefore = findViewById(R.id.leftbeforebtn);
+        logout = findViewById(R.id.cusLogout);
 
         Intent receivedIntent = getIntent();
         String receivedVType = receivedIntent.getStringExtra("USER_VEHICLE_TYPE");
         receivedLocation = receivedIntent.getStringExtra("USER_SELECTED_LOCATION");
         receivedFuelType = receivedIntent.getStringExtra("USER_SELECT_FUEL_TYPE");
 
-        URL = "http://192.168.8.101:8081/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
+        URL = "http://192.168.8.129:8081/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
 
         joined.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +67,6 @@ public class UpdateCustomerTime extends AppCompatActivity {
 
                 leftAfterPumping();
                 Toast.makeText(UpdateCustomerTime.this,"Leaving the "+receivedLocation+" "+receivedFuelType+" queue", Toast.LENGTH_LONG).show();
-
             }
         });
 
@@ -75,6 +77,14 @@ public class UpdateCustomerTime extends AppCompatActivity {
                 leftBeforePumping();
                 Toast.makeText(UpdateCustomerTime.this,"Leaving the "+receivedLocation+" "+receivedFuelType+" queue", Toast.LENGTH_LONG).show();
 
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UpdateCustomerTime.this, Pivot.class);
+                startActivity(intent);
             }
         });
     }

@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/id_QueueViewHeadLocationInput"
-        android:layout_width="40dp"
+        android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:text="txt"
         android:textAlignment="center"
@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/id_QueueViewHeadFuelTypeInput"
-        android:layout_width="62dp"
+        android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:text="type"
         android:textAlignment="center"
@@ -106,31 +106,28 @@
         android:id="@+id/id_BtnStayInQueue"
         android:layout_width="222dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/mybutton"
         android:text="@string/waitQueue"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/id_btnQueueBack"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.896" />
+        app:layout_constraintTop_toBottomOf="@+id/id_StatusImg" />
 
     <Button
         android:id="@+id/id_btnQueueBack"
         android:layout_width="133dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/mybutton"
         android:text="@string/queueGoBack"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.896" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_BtnStayInQueue" />
 
     <TextView
         android:id="@+id/id_BeforeLeaveTxt"
