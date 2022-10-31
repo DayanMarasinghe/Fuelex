@@ -50,7 +50,7 @@ public class QueueView extends AppCompatActivity {
         backBtn = findViewById(R.id.id_btnQueueBack);
 
         //set URL string
-        URL ="http://192.168.8.101:8081/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
+        URL ="http://192.168.8.129:8081/api/Queue/"+receivedLocation+"/"+receivedVType+"/"+receivedFuelType;
 
 
 

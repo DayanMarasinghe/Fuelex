@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity {
     //customer login method
     private void login(){
 
-        String url ="http://192.168.8.101:8081/api/Customer";
+        String url ="http://192.168.8.129:8081/api/Customer";
 
         HashMap<String, String> body = new HashMap<String, String>();
 
